@@ -1,0 +1,79 @@
+CREATE TABLE [User] (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Email NVARCHAR(100) NOT NULL,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Role NVARCHAR(50) NOT NULL CHECK (Role IN ('Student', 'Admin', 'Instructor'))
+);
+
+CREATE TABLE Instructor (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    Specialization NVARCHAR(50) NOT NULL,
+    UserID INT NOT NULL UNIQUE,
+    FOREIGN KEY (UserID) REFERENCES [User](ID)
+);
+
+CREATE TABLE Branch (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(50) NOT NULL,
+    District VARCHAR(50) NOT NULL,
+    Phone CHAR(10) NOT NULL
+);
+
+CREATE TABLE Student (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    DateOfBirth DATE NOT NULL,
+    UserID INT NOT NULL,
+    InstructorID INT NOT NULL,
+    BranchID INT NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES [User](ID),
+    FOREIGN KEY (InstructorID) REFERENCES Instructor(ID),
+    FOREIGN KEY (BranchID) REFERENCES Branch(ID)
+);
+
+CREATE TABLE Admin (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    UserID INT NOT NULL UNIQUE,
+    FOREIGN KEY (UserID) REFERENCES [User](ID)
+);
+
+CREATE TABLE Session (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+	SessionName NVARCHAR(50) NOT NULL,
+    StartTime DATETIME NOT NULL,
+    EndTime DATETIME NOT NULL,
+    InstructorID INT NOT NULL,
+    BranchID INT NOT NULL,
+    FOREIGN KEY (InstructorID) REFERENCES Instructor(ID),
+    FOREIGN KEY (BranchID) REFERENCES Branch(ID)
+);
+
+CREATE TABLE SessionAttendance (
+    SessionID INT NOT NULL,
+    StudentID INT NOT NULL,
+    PRIMARY KEY (SessionID, StudentID),
+    FOREIGN KEY (SessionID) REFERENCES Session(ID),
+    FOREIGN KEY (StudentID) REFERENCES Student(ID)
+);
+
+CREATE TABLE Payment (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Month NVARCHAR(20) NOT NULL,
+    DueDate DATETIME NOT NULL,
+    Amount DECIMAL(10, 2) NOT NULL,
+    Status TINYINT NOT NULL CHECK (Status IN (0, 1)),
+    StudentID INT NOT NULL,
+    FOREIGN KEY (StudentID) REFERENCES Student(ID)
+);
+
+CREATE TABLE DevelopmentRecord (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Date DATE NOT NULL,
+    Height DECIMAL(5, 2),
+    Weight DECIMAL(5, 2),
+    CoachComment NVARCHAR(250),
+    StudentID INT NOT NULL,
+    FOREIGN KEY (StudentID) REFERENCES Student(ID)
+);
