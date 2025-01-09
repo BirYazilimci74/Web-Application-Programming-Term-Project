@@ -1,0 +1,64 @@
+﻿@{
+    // Kullanıcı türüne bağlı olarak menüleri tanımlıyoruz.
+    var userType = ViewBag.UserType ?? "Student"; // Varsayılan olarak Student
+    var menuItems = new List<string>();
+
+    if (userType == "Admin")
+    {
+        menuItems = new List<string> { "Sessions", "Students", "Instructors", "Branchs" };
+    }
+    else if (userType == "Instructor")
+    {
+        menuItems = new List<string> { "My Sessions", "My Students" };
+    }
+    else if (userType == "Student")
+    {
+        menuItems = new List<string> { "Sessions", "My Sessions", "My Records", "Instructors" };
+    }
+
+    var bottomMenuItems = userType == "Student" ? new List<string> { "Payment" } : new List<string>();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - HomePage</title>
+    <link rel="stylesheet" href="~/Styles/homeStyle.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sol Menü -->
+        <div class="sidebar">
+            <h1 class="title">TITLE</h1>
+            <ul class="menu">
+                @foreach (var item in menuItems)
+                {
+                    <li><a href="#">@item</a></li>
+                }
+            </ul>
+
+            @if (bottomMenuItems.Any())
+            {
+                <div class="bottom-menu">
+                    <ul class="menu">
+                        @foreach (var item in bottomMenuItems)
+                        {
+                            <li><a href="#">@item</a></li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <div class="user-info">
+                <p><span>@ViewBag.UserName</span></p>
+            </div>
+        </div>
+
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
