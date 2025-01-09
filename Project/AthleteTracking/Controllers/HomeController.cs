@@ -8,24 +8,13 @@ namespace AthleteTracking.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Student()
+        public ActionResult Login()
         {
-            ViewBag.Message = "Student Page.";
-            ViewBag.UserType = "Student";
             return View();
         }
 
-        public ActionResult Admin()
+        public ActionResult Register()
         {
-            ViewBag.Message = "Admin Page.";
-            ViewBag.UserType = "Admin";
-            return View();
-        }
-
-        public ActionResult Instructor()
-        {
-            ViewBag.Message = "Instructor Page.";
-            ViewBag.UserType = "Instructor";
             return View();
         }
     }

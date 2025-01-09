@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Register";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="~/Styles/registerStyle.css">
+</head>
+<body>
+    <div class="register-container">
+        <h1 class="title">TITLE</h1>
+        <form class="register-form">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <a href="@Url.Action("Login","Home")" class="link">Already have an account</a>
+            <select>
+                <option value="default">Role</option>
+                <option value="admin">Admin</option>
+                <option value="student">Student</option>
+                <option value="instructor">Instructor</option>
+            </select>
+            <button type="submit" class="register-button">REGISTER</button>
+        </form>
+    </div>
+</body>
+</html>
+

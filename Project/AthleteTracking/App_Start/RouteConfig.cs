@@ -16,6 +16,18 @@ namespace AthleteTracking
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Register",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Register", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Student",
+                url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Student", action = "Student", id = UrlParameter.Optional }
             );
 
