@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace AthleteTracking.Models
 {
@@ -17,8 +14,8 @@ namespace AthleteTracking.Models
         [Required]
         public int UserId { get; set; }
         public User User { get; set; }
-        
-        public int BrachId { get; set; }
+
+        public int BranchId { get; set; }
         public Branch Branch { get; set; }
     }
 }

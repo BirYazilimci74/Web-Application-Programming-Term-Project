@@ -18,7 +18,7 @@ namespace AthleteTracking.Models
         [Required]
         public string PasswordHash { get; set; }
         
-        [AllowedValues("Admin","Student","Instructor")]
+        [AllowedValues("admin","student","instructor")]
         public string Role { get; set; }
 
     }
