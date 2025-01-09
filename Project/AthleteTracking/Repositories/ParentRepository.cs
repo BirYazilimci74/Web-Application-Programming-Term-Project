@@ -16,13 +16,15 @@ namespace AthleteTracking.Repositories
             _context = context;
         }
 
-        public void AddParent(string name, User user)
+        public void AddParent(string name, User user, Student student)
         {
             var parentToAdd = new Parent
             {
                 Name = name,
                 UserId = user.Id,
                 User = user,
+                StudentId = student.Id,
+                Student = student
             };
             _context.Parents.Add(parentToAdd);
             _context.SaveChanges();

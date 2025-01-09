@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
     ViewBag.Title = "Register";
 }
@@ -11,6 +10,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Page</title>
     <link rel="stylesheet" href="~/Styles/registerStyle.css">
+    <script>
+        // JavaScript ile dinamik input alanı yönetimi
+        function onRoleChange() {
+            const role = document.getElementById("roleSelect").value;
+            const extraInputContainer = document.getElementById("extraInputContainer");
+            const extraInput = document.getElementById("extraInput");
+
+            // Role'e göre ekstra alanı göster veya gizle
+            if (role === "student") {
+                extraInputContainer.style.display = "block";
+                extraInput.placeholder = "Enter Student Name";
+                extraInput.required = true;
+            } else if (role === "instructor") {
+                extraInputContainer.style.display = "block";
+                extraInput.placeholder = "Enter Specialization";
+                extraInput.required = true;
+            } else {
+                extraInputContainer.style.display = "none";
+                extraInput.name = "";
+                extraInput.required = false;
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="register-container">
@@ -20,16 +42,22 @@
             <input type="email" name="Email" placeholder="Email" required>
             <input type="password" name="Password" placeholder="Password" required>
             <input type="password" name="ConfirmPassword" placeholder="Confirm Password" required>
-            <a href="@Url.Action("Login","Home")" class="link">Already have an account</a>
-            <select name="Role">
+
+            <div id="extraInputContainer" style="display: none;">
+                <input type="text" id="extraInput" name="extraInput" placeholder="" />
+            </div>
+
+            <a href="@Url.Action("Login", "Home")" class="link">Already have an account</a>
+
+            <select id="roleSelect" name="Role" onchange="onRoleChange()" required>
                 <option value="default">Role</option>
                 <option value="admin">Admin</option>
                 <option value="student">Student</option>
                 <option value="instructor">Instructor</option>
             </select>
+
             <button type="submit" class="register-button">REGISTER</button>
         </form>
     </div>
 </body>
 </html>
-

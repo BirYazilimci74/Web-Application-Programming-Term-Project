@@ -14,10 +14,9 @@ namespace AthleteTracking.Models
         [Required]
         public string Name { get; set; }
         
-        [Required]
         public DateTime DateOfBirth { get; set; }
         
-        public int InstructorId { get; set; }
+        public int? InstructorId { get; set; }
         public Instructor Instructor { get; set; }
 
         public List<Payment> Payments { get; set; }

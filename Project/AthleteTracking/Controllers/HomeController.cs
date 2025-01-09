@@ -42,7 +42,7 @@ namespace AthleteTracking.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(string FullName, string Email, string Password, string ConfirmPassword, string Role)
+        public ActionResult Register(string FullName, string Email, string Password, string ConfirmPassword, string Role, string extraInput)
         {
             if (Password != ConfirmPassword)
             {
@@ -68,11 +68,17 @@ namespace AthleteTracking.Controllers
             }
             else if (Role.ToLower().Equals("student"))
             {
-                _parentRepository.AddParent(FullName, user);
+                var student = new Student
+                {
+                    Name = extraInput,
+                    DateOfBirth = DateTime.Now,
+                    
+                };
+                _parentRepository.AddParent(FullName, user, student);
             }
             else if (Role.ToLower().Equals("instructor"))
             {
-                _instructorRepository.AddInstructor(FullName, user, "General");
+                _instructorRepository.AddInstructor(FullName, user, extraInput);
             }
             else
             {
