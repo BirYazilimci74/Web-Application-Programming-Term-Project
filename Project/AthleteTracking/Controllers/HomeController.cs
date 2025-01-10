@@ -1,20 +1,16 @@
 ﻿using AthleteTracking.Data;
 using AthleteTracking.Models;
 using AthleteTracking.Repositories;
-using Org.BouncyCastle.Crypto.Generators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace AthleteTracking.Controllers
 {
     public class HomeController : Controller
     {
-        private DBAthleteTrackingDbContext _context;
+        private readonly DBAthleteTrackingDbContext _context;
         private readonly AdminRepository _adminRepository;
         private readonly InstructorRepository _instructorRepository;
         private readonly ParentRepository _parentRepository;
@@ -42,7 +38,7 @@ namespace AthleteTracking.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(string FullName, string Email, string Password, string ConfirmPassword, string Role, string extraInput)
+        public ActionResult UserRegister(string FullName, string Email, string Password, string ConfirmPassword, string Role, string extraInput)
         {
             if (Password != ConfirmPassword)
             {
@@ -50,7 +46,7 @@ namespace AthleteTracking.Controllers
                 return View();
             }
 
-            string passwordHash = Crypto.HashPassword(Password);
+            string passwordHash = Password;
 
             var user = new User
             {
@@ -58,9 +54,6 @@ namespace AthleteTracking.Controllers
                 PasswordHash = passwordHash,
                 Role = Role
             };
-
-            var userRepo = new UserRepository(new DBAthleteTrackingDbContext());
-
 
             if (Role.ToLower().Equals("admin"))
             {
@@ -87,7 +80,39 @@ namespace AthleteTracking.Controllers
             }
 
             return RedirectToAction("Login");
+        }
 
+        public async Task<ActionResult> UserLogin(string email, string password, string role)
+        {
+            if (role.ToLower().Equals("admin"))
+            {
+                var admin = await _adminRepository.GetAdminByUserAsync(new User { Email = email, PasswordHash = password });
+                ViewBag.Id = admin.Id;
+                ViewBag.Role = "admin";
+                ViewBag.Name = admin.Name;
+                return RedirectToAction("Admin", "Admin");
+            }
+            else if (role.ToLower().Equals("student"))
+            {
+                var student = await _studentRepository.GetStudentByUserAsync(new User { Email = email, PasswordHash = password });
+                ViewBag.Id = student.Id;
+                ViewBag.Role = "student";
+                ViewBag.Name = student.Name;
+                return RedirectToAction("Student", "Student");
+            }
+            else if (role.ToLower().Equals("instructor"))
+            {
+                var instructor = await _instructorRepository.GetInstructorByUserAsync(new User { Email = email, PasswordHash = password });
+                ViewBag.Id = instructor.Id;
+                ViewBag.Role = "instructor";
+                ViewBag.Name = instructor.Name;
+                return RedirectToAction("Instructor", "Instructor");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Please select a valide role!!!";
+                return View();
+            }
         }
     }
 }

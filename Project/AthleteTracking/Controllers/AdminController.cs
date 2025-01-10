@@ -9,11 +9,12 @@ namespace AthleteTracking.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Admin()
         {
             ViewBag.Message = "Admin Page.";
             ViewBag.UserType = "Admin";
-            ViewBag.UserName = "John Doe(Admin)";
+            var name = ViewBag.UserName;
+            var email = ViewBag.Email;
             return View();
         }
     }

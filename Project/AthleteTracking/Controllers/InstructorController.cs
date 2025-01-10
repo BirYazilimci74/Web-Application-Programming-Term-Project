@@ -9,11 +9,10 @@ namespace AthleteTracking.Controllers
     public class InstructorController : Controller
     {
         // GET: Instructor
-        public ActionResult Index()
+        public ActionResult Instructor()
         {
             ViewBag.Message = "Instructor Page.";
             ViewBag.UserType = "Instructor";
-            ViewBag.UserName = "John Doe(Instructor)";
             return View();
         }
     }

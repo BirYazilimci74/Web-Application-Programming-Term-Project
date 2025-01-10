@@ -29,5 +29,11 @@ namespace AthleteTracking.Repositories
             _context.Parents.Add(parentToAdd);
             _context.SaveChanges();
         }
+
+        public async Task<Parent> GetParentByIdAsync(int id)
+        {
+            var parent = await _context.Parents.FindAsync(id);
+            return parent;
+        }
     }
 }

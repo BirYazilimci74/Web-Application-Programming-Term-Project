@@ -3,9 +3,9 @@ using AthleteTracking.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 
 namespace AthleteTracking.Repositories
 {
@@ -26,6 +26,15 @@ namespace AthleteTracking.Repositories
         public async Task<Student> GetStudentByIdAsync(int id)
         {
             var student = await _context.Students.FindAsync(id);
+            return student;
+        }
+
+        public async Task<Student> GetStudentByUserAsync(User user)
+        {
+            var parent = await _context.Parents
+                .Include(p => p.Student)
+                .FirstOrDefaultAsync(p => p.User.Email == user.Email && p.User.PasswordHash == user.PasswordHash);
+            var student = parent.Student;
             return student;
         }
     }

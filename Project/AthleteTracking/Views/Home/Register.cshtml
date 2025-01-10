@@ -11,7 +11,6 @@
     <title>Register Page</title>
     <link rel="stylesheet" href="~/Styles/registerStyle.css">
     <script>
-        // JavaScript ile dinamik input alanı yönetimi
         function onRoleChange() {
             const role = document.getElementById("roleSelect").value;
             const extraInputContainer = document.getElementById("extraInputContainer");
@@ -37,7 +36,7 @@
 <body>
     <div class="register-container">
         <h1 class="title">TITLE</h1>
-        <form class="register-form" method="post" action="@Url.Action("Register")">
+        <form class="register-form" method="post" action="@Url.Action("UserRegister")">
             <input type="text" name="FullName" placeholder="Full Name" required>
             <input type="email" name="Email" placeholder="Email" required>
             <input type="password" name="Password" placeholder="Password" required>

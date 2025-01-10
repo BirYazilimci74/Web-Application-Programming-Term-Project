@@ -42,8 +42,19 @@ namespace AthleteTracking.Repositories
             {
                 Console.WriteLine(e.Message);
                 throw;
-
             }
+        }
+
+        public async Task<Admin> GetAdminByIdAsync(int id)
+        {
+            var admin = await _context.Admins.FirstOrDefaultAsync(a => a.Id == id);
+            return admin;
+        }
+
+        public async Task<Admin> GetAdminByUserAsync(User user)
+        {
+            var admin = await _context.Admins.FirstOrDefaultAsync(a => ((a.User.Email == user.Email) && (a.User.PasswordHash == user.PasswordHash)));
+            return admin;
         }
     }
 }

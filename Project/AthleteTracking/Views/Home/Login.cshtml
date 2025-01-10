@@ -15,11 +15,11 @@
 <body>
     <div class="login-container">
         <h1 class="title">TITLE</h1>
-        <form class="login-form">
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
+        <form class="login-form" method="post" action="@Url.Action("UserLogin")">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
             <a href="@Url.Action("Register","Home")" class="link">Don’t have an account</a>
-            <select>
+            <select name="role">
                 <option value="default">Role</option>
                 <option value="admin">Admin</option>
                 <option value="student">Student</option>
