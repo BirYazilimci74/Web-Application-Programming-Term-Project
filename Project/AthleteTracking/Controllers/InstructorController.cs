@@ -13,6 +13,7 @@ namespace AthleteTracking.Controllers
         {
             ViewBag.Message = "Instructor Page.";
             ViewBag.UserType = "Instructor";
+            ViewBag.UserName = Session["Name"]?.ToString();
             return View();
         }
     }

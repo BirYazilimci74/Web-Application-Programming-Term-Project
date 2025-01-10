@@ -87,25 +87,22 @@ namespace AthleteTracking.Controllers
             if (role.ToLower().Equals("admin"))
             {
                 var admin = await _adminRepository.GetAdminByUserAsync(new User { Email = email, PasswordHash = password });
-                ViewBag.Id = admin.Id;
-                ViewBag.Role = "admin";
-                ViewBag.Name = admin.Name;
+                Session["Id"] = admin.Id;
+                Session["Name"] = admin.Name;
                 return RedirectToAction("Admin", "Admin");
             }
             else if (role.ToLower().Equals("student"))
             {
                 var student = await _studentRepository.GetStudentByUserAsync(new User { Email = email, PasswordHash = password });
-                ViewBag.Id = student.Id;
-                ViewBag.Role = "student";
-                ViewBag.Name = student.Name;
+                Session["Id"] = student.Id;
+                Session["Name"] = student.Name;
                 return RedirectToAction("Student", "Student");
             }
             else if (role.ToLower().Equals("instructor"))
             {
                 var instructor = await _instructorRepository.GetInstructorByUserAsync(new User { Email = email, PasswordHash = password });
-                ViewBag.Id = instructor.Id;
-                ViewBag.Role = "instructor";
-                ViewBag.Name = instructor.Name;
+                Session["Id"] = instructor.Id;
+                Session["Name"] = instructor.Name;
                 return RedirectToAction("Instructor", "Instructor");
             }
             else

@@ -12,7 +12,6 @@ body {
     width: 100%;
 }
 
-/* Sidebar kısmının düzeni */
 .sidebar {
     width: 150px;
     background-color: #007BFF;
@@ -22,7 +21,6 @@ body {
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
-    height: 100vh; /* Sayfa boyutuna göre yüksekliği ayarla */
 }
 
 .title {
@@ -58,9 +56,8 @@ body {
             color: #FFD700;
         }
 
-/* Bottom-menu'yu sabitleme */
 .bottom-menu {
-    margin-top: auto; /* Yukarıdaki öğelerden ayırır */
+    margin-top: auto;
     width: 100%;
 }
 
@@ -83,7 +80,6 @@ body {
         font-weight: bold;
     }
 
-/* Ana İçerik */
 .content {
     flex-grow: 1;
     background-color: #f4f4f4;
