@@ -1,0 +1,117 @@
+﻿/*Instructor List*/
+.instructors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.instructor-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    .instructor-card.highlight {
+        background-color: green;
+    }
+
+    .instructor-card h3 {
+        margin: 10px 0;
+        font-size: 18px;
+    }
+
+    .instructor-card p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+
+/*Payment List*/
+.month-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.month-card {
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+}
+
+    .month-card.paid {
+        background-color: lawngreen;
+    }
+
+    .month-card.unpaid {
+        background-color: red;
+    }
+
+    .month-card button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        border: none;
+        background-color: white;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+/*Session List*/
+.sessions-container {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.session-card {
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    width: 200px;
+}
+
+    .session-card h5 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .session-card p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+.registerSession-button, .cancelSession-button {
+    padding: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.registerSession-button {
+    background-color: green;
+}
+
+    .registerSession-button:hover {
+        background-color: #005f00;
+    }
+
+.cancelSession-button {
+    background-color: red;
+}
+
+    .cancelSession-button:hover {
+        background-color: #a00000;
+    }

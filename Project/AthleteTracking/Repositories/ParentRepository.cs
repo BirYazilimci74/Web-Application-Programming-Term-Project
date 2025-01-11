@@ -50,6 +50,7 @@ namespace AthleteTracking.Repositories
         {
             var parent = await _context.Parents
                 .Include(p => p.Student)
+                .Include(p => p.Student.Instructor)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(p => p.User.Email == user.Email && p.User.PasswordHash == user.PasswordHash);
             return parent;

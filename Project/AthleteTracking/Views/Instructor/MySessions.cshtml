@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "MySessions";
+    @model List<AthleteTracking.Models.Session>
+}
+
+
+<div class="sessions-container">
+    @foreach (var session in Model)
+    {
+        <div class="session-card">
+            <h5>@session.Name</h5>
+            <p>Date: @session.Day</p>
+            <p>Time: @session.StartTime - @session.EndTime</p>
+            <p>Branch: @session.Branch.District</p>
+            <form action="/Student/CancelSession" method="post">
+                <input type="hidden" name="id" value="@session.Id" />
+                <button type="submit" class="cancelSession-button">Cancel</button>
+            </form>
+
+        </div>
+    }
+</div>

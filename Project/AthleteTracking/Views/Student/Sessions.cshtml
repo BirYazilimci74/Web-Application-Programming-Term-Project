@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Sessions";
+
+    var attendedSessions = Session["AttendedSessions"] as List<AthleteTracking.Models.Session>;
+    var unattendedSessions = Session["UnattendedSessions"] as List<AthleteTracking.Models.Session>;
+}
+
+<div class="sessions-container">
+    <!-- Attended Sessions-->
+    @foreach (var session in attendedSessions)
+    {
+        <div class="session-card">
+            <h5>@session.Name</h5>
+            <p>Date: @session.Day</p>
+            <p>Time: @session.StartTime - @session.EndTime</p>
+            <p>Instructor: @session.Instructor.Name</p>
+            <p>Branch: @session.Branch.District</p>
+            <form action="/Student/CancelSession" method="post">
+                <input type="hidden" name="id" value="@session.Id" />
+                <button type="submit" class="cancelSession-button">Cancel</button>
+            </form>
+
+        </div>
+    }
+
+    <!-- Unattended Session-->
+    @foreach (var session in unattendedSessions)
+    {
+        <div class="session-card">
+            <h5>@session.Name</h5>
+            <p>Date: @session.Day</p>
+            <p>Time: @session.StartTime - @session.EndTime</p>
+            <p>Instructor: @session.Instructor.Name</p>
+            <p>Branch: @session.Branch.District</p>
+            <form action="/Student/RegisterSession" method="post">
+                <input type="hidden" name="id" value="@session.Id" />
+                <button type="submit" class="registerSession-button">Register</button>
+            </form>
+        </div>
+    }
+</div>
+

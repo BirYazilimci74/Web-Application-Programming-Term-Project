@@ -29,7 +29,9 @@ namespace AthleteTracking.Repositories
 
         public async Task<List<Student>> GetStudentsAsync()
         {
-            var students = await _context.Students.ToListAsync();
+            var students = await _context.Students
+                .Include(s => s.Instructor)
+                .ToListAsync();
             return students;
         }
 

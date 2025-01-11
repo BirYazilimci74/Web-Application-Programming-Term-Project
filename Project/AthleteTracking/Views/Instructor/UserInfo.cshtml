@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "UserInfo";
+    var user = Session["Instructor"] as AthleteTracking.Models.Instructor;
+}
+
+<div class="content">
+    <div class="user-info">
+        <div class="profile-pic"></div>
+        <div class="user-details">
+            <h2>@user.Name</h2>
+            <p>@user.User.Email</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="info-update">
+        <div class="update-section">
+            <h3>Update Info</h3>
+            <input type="text" placeholder="Name">
+            <input type="email" placeholder="Email">
+            <button>Save Changes</button>
+        </div>
+
+        <div class="password-section">
+            <h3>Change Password</h3>
+            <input type="password" placeholder="Current Password">
+            <input type="password" placeholder="New Password">
+            <input type="password" placeholder="Confirm Password">
+            <button>Change</button>
+        </div>
+    </div>
+</div>

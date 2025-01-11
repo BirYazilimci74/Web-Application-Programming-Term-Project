@@ -91,7 +91,9 @@ namespace AthleteTracking.Controllers
                     var admin = await _adminRepository.GetAdminByUserAsync(new User { Email = email, PasswordHash = password });
                     Session["Id"] = admin.Id;
                     Session["Name"] = admin.Name;
-                    return RedirectToAction("Admin", "Admin");
+                    Session["Admin"] = admin;
+                    Session["UserType"] = "Admin";
+                    return RedirectToAction("Index", "Admin");
                 }
                 else if (role.ToLower().Equals("student"))
                 {
@@ -99,14 +101,19 @@ namespace AthleteTracking.Controllers
                     var student = parent.Student;
                     Session["Id"] = student.Id;
                     Session["Name"] = student.Name;
-                    return RedirectToAction("Student", "Student");
+                    Session["Student"] = student;
+                    Session["Parent"] = parent;
+                    Session["UserType"] = "Student";
+                    return RedirectToAction("Index", "Student");
                 }
                 else if (role.ToLower().Equals("instructor"))
                 {
                     var instructor = await _instructorRepository.GetInstructorByUserAsync(new User { Email = email, PasswordHash = password });
                     Session["Id"] = instructor.Id;
                     Session["Name"] = instructor.Name;
-                    return RedirectToAction("Instructor", "Instructor");
+                    Session["Instructor"] = instructor;
+                    Session["UserType"] = "Instructor";
+                    return RedirectToAction("Index", "Instructor");
                 }
                 else
                 {

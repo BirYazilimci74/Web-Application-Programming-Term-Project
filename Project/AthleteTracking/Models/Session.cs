@@ -13,12 +13,15 @@ namespace AthleteTracking.Models
         
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public string Day { get; set; }
+
+        [Required]
+        public TimeSpan StartTime { get; set; }
         
         [Required]
-        public DateTime StartTime { get; set; }
-        
-        [Required]
-        public DateTime EndTime { get; set; }
+        public TimeSpan EndTime { get; set; }
         
         [Required]
         public int InstructorId { get; set; }

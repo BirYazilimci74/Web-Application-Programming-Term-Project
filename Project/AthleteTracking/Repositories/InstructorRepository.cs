@@ -34,13 +34,25 @@ namespace AthleteTracking.Repositories
 
         public async Task<Instructor> GetInstructorByIdAsync(int id)
         {
-            var instructor = await _context.Instructors.FindAsync(id);
+            var instructor = await _context.Instructors
+                .Include(i => i.User)
+                .FirstOrDefaultAsync(i => i.Id == id);
             return instructor;
+        }
+
+        public async Task<List<Instructor>> GetInstructorsAsync()
+        {
+            var instructors = await _context.Instructors
+                .Include(i => i.User)
+                .ToListAsync();
+            return instructors;
         }
 
         public async Task<Instructor> GetInstructorByUserAsync(User user)
         {
-            var instructor = await _context.Instructors.FirstOrDefaultAsync(i => i.User.Email == user.Email && i.User.PasswordHash == user.PasswordHash);
+            var instructor = await _context.Instructors
+                .Include(i => i.User)
+                .FirstOrDefaultAsync(i => i.User.Email == user.Email && i.User.PasswordHash == user.PasswordHash);
             return instructor;
         }
     }

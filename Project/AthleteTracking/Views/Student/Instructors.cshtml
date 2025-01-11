@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Instructors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var student = Session["Student"] as AthleteTracking.Models.Student;
+    @model List<AthleteTracking.Models.Instructor>
+}
+
+<div class="instructors-grid">
+    @foreach (var instructor in Model)
+    {
+        <div class="instructor-card @(student.Instructor.Id == instructor.Id ? "highlight" : "")" >
+            <h3>@instructor.Name</h3>
+            <p><strong>Specialization:</strong> @instructor.Specialization</p>
+            <p><strong>Email:</strong> @instructor.User.Email</p>
+        </div>
+    }
+</div>

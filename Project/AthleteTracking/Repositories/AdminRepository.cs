@@ -20,7 +20,9 @@ namespace AthleteTracking.Repositories
 
         public async Task<List<Admin>> GetAdminsAsync()
         {
-            var admins = await _context.Admins.ToListAsync();
+            var admins = await _context.Admins
+                .Include(a => a.User)
+                .ToListAsync();
             return admins;
         }
 
@@ -47,13 +49,17 @@ namespace AthleteTracking.Repositories
 
         public async Task<Admin> GetAdminByIdAsync(int id)
         {
-            var admin = await _context.Admins.FirstOrDefaultAsync(a => a.Id == id);
+            var admin = await _context.Admins
+                .Include(a => a.User)
+                .FirstOrDefaultAsync(a => a.Id == id);
             return admin;
         }
 
         public async Task<Admin> GetAdminByUserAsync(User user)
         {
-            var admin = await _context.Admins.FirstOrDefaultAsync(a => ((a.User.Email == user.Email) && (a.User.PasswordHash == user.PasswordHash)));
+            var admin = await _context.Admins
+                .Include(a => a.User)
+                .FirstOrDefaultAsync(a => ((a.User.Email == user.Email) && (a.User.PasswordHash == user.PasswordHash)));
             return admin;
         }
     }

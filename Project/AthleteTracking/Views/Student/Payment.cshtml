@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Payment";
+    @model List<AthleteTracking.Models.Payment>
+}
+
+<div class="month-grid">
+    @foreach (var payment in Model)
+    {
+        <div class="month-card @(payment.Status == 1 ? "paid" : "unpaid")">
+            <h3>@payment.Month</h3>
+            <p>Amount: @payment.Amount₺</p>
+            @if (payment.Status == 0)
+            {
+                <button class="pay-button" data-month="@payment.Month">Pay</button>
+            }
+        </div>
+    }
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.pay-button').click(function () {
+            var month = $(this).data('month');
+
+            $.ajax({
+                url: '@Url.Action("PayMonth", "Student")',
+                type: 'POST',
+                data: { month: month },
+                success: function (response) {
+                    if (response.success) {
+                        var card = $('#card-' + response.month);
+                        console.log(card);
+                        card.removeClass('unpaid').addClass('paid');
+                        card.find('button').remove();
+                    } else {
+                        alert("Payment failed!");
+                    }
+                },
+                error: function () {
+                    alert("An error occurred.");
+                }
+            });
+        });
+    });
+</script>

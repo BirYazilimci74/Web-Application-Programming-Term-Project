@@ -1,6 +1,5 @@
 ﻿@{
-    // Kullanıcı türüne bağlı olarak menüleri tanımlıyoruz.
-    var userType = ViewBag.UserType ?? "Student"; // Varsayılan olarak Student
+    var userType = Session["UserType"].ToString() ?? "Student"; // Student as default
     var menuItems = new List<string>();
 
     if (userType == "Admin")
@@ -9,11 +8,11 @@
     }
     else if (userType == "Instructor")
     {
-        menuItems = new List<string> { "My Sessions", "My Students" };
+        menuItems = new List<string> { "MySessions", "MyStudents" };
     }
     else if (userType == "Student")
     {
-        menuItems = new List<string> { "Sessions", "My Sessions", "My Records", "Instructors" };
+        menuItems = new List<string> { "Sessions", "MySessions", "MyRecords", "Instructors" };
     }
 
     var bottomMenuItems = userType == "Student" ? new List<string> { "Payment" } : new List<string>();
@@ -24,8 +23,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.UserType - HomePage</title>
+    <title>@userType - HomePage</title>
     <link rel="stylesheet" href="~/Styles/homeStyle.css">
+    <link rel="stylesheet" href="~/Styles/cardStyle.css" />
+    <link rel="stylesheet" href="~/Styles/infoStyle.css">
 </head>
 <body>
     <div class="container">
@@ -34,7 +35,7 @@
             <ul class="menu">
                 @foreach (var item in menuItems)
                 {
-                    <li><a href="#">@item</a></li>
+                    <li><a href="@item">@item</a></li>
                 }
             </ul>
 
@@ -44,14 +45,14 @@
                     <ul class="menu">
                         @foreach (var item in bottomMenuItems)
                         {
-                            <li><a href="#">@item</a></li>
+                            <li><a href="@item">@item</a></li>
                         }
                     </ul>
                 </div>
             }
 
             <div class="user-info">
-                <p><span>@ViewBag.UserName</span></p>
+                <p><span><a href="UserInfo">@Session["Name"]</a></span></p>
             </div>
         </div>
 

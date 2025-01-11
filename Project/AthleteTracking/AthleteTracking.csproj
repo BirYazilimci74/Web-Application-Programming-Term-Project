@@ -193,6 +193,14 @@
     <Compile Include="Migrations\202501110917245_datetime.Designer.cs">
       <DependentUpon>202501110917245_datetime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501111234084_timespan.cs" />
+    <Compile Include="Migrations\202501111234084_timespan.Designer.cs">
+      <DependentUpon>202501111234084_timespan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202501111235551_dayforsession.cs" />
+    <Compile Include="Migrations\202501111235551_dayforsession.Designer.cs">
+      <DependentUpon>202501111235551_dayforsession.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Branch.cs" />
@@ -206,10 +214,12 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepository.cs" />
+    <Compile Include="Repositories\AttendanceRepository.cs" />
     <Compile Include="Repositories\DevelopmentRecordRepository.cs" />
     <Compile Include="Repositories\InstructorRepository.cs" />
     <Compile Include="Repositories\ParentRepository.cs" />
     <Compile Include="Repositories\PaymentRepository.cs" />
+    <Compile Include="Repositories\SessionRepository.cs" />
     <Compile Include="Repositories\StudentRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
@@ -250,7 +260,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Styles\cardStyle.css" />
     <Content Include="Styles\homeStyle.css" />
+    <Content Include="Styles\infoStyle.css" />
     <Content Include="Styles\loginStyle.css" />
     <Content Include="Styles\registerStyle.css" />
     <Content Include="Web.config" />
@@ -264,11 +276,21 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Student\Student.cshtml" />
-    <Content Include="Views\Admin\Admin.cshtml" />
-    <Content Include="Views\Instructor\Instructor.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Instructor\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Student\Instructors.cshtml" />
+    <Content Include="Views\Student\Payment.cshtml" />
+    <Content Include="Views\Student\UserInfo.cshtml" />
+    <Content Include="Views\Admin\UserInfo.cshtml" />
+    <Content Include="Views\Instructor\UserInfo.cshtml" />
+    <Content Include="Views\Student\Sessions.cshtml" />
+    <Content Include="Views\Student\MySessions.cshtml" />
+    <Content Include="Views\Student\MyRecords.cshtml" />
+    <Content Include="Views\Instructor\MySessions.cshtml" />
+    <Content Include="Views\Instructor\MyStudents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -333,6 +355,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501110917245_datetime.resx">
       <DependentUpon>202501110917245_datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501111234084_timespan.resx">
+      <DependentUpon>202501111234084_timespan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501111235551_dayforsession.resx">
+      <DependentUpon>202501111235551_dayforsession.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
