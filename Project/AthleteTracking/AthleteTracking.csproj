@@ -189,6 +189,10 @@
     <Compile Include="Migrations\202501091626519_addAdmins.Designer.cs">
       <DependentUpon>202501091626519_addAdmins.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501110917245_datetime.cs" />
+    <Compile Include="Migrations\202501110917245_datetime.Designer.cs">
+      <DependentUpon>202501110917245_datetime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Branch.cs" />
@@ -202,8 +206,10 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepository.cs" />
+    <Compile Include="Repositories\DevelopmentRecordRepository.cs" />
     <Compile Include="Repositories\InstructorRepository.cs" />
     <Compile Include="Repositories\ParentRepository.cs" />
+    <Compile Include="Repositories\PaymentRepository.cs" />
     <Compile Include="Repositories\StudentRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
@@ -324,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501091626519_addAdmins.resx">
       <DependentUpon>202501091626519_addAdmins.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501110917245_datetime.resx">
+      <DependentUpon>202501110917245_datetime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

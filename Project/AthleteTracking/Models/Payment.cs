@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,7 @@ namespace AthleteTracking.Models
         public string Month { get; set; }
         
         [Required]
+        [Column(TypeName = "datetime2")]
         public DateTime DueDate { get; set; }
         
         [Required]

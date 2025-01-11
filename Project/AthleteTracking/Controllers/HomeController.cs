@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 
 namespace AthleteTracking.Controllers
 {
@@ -14,8 +15,6 @@ namespace AthleteTracking.Controllers
         private readonly AdminRepository _adminRepository;
         private readonly InstructorRepository _instructorRepository;
         private readonly ParentRepository _parentRepository;
-        private readonly StudentRepository _studentRepository;
-        private readonly UserRepository _userRepository;
 
         public HomeController()
         {
@@ -23,8 +22,6 @@ namespace AthleteTracking.Controllers
             _adminRepository = new AdminRepository(_context);
             _instructorRepository = new InstructorRepository(_context);
             _parentRepository = new ParentRepository(_context);
-            _studentRepository = new StudentRepository(_context);
-            _userRepository = new UserRepository(_context);
         }
 
         public ActionResult Login()
@@ -38,45 +35,48 @@ namespace AthleteTracking.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserRegister(string FullName, string Email, string Password, string ConfirmPassword, string Role, string extraInput)
+        public ActionResult UserRegister(string fullName, string email, string password, string confirmPassword, string role, string extraInput)
         {
-            if (Password != ConfirmPassword)
+            if (password != confirmPassword)
             {
                 ViewBag.ErrorMessage = "Passwords do not match!";
                 return View();
             }
 
-            string passwordHash = Password;
+            string passwordHash = password;
 
             var user = new User
             {
-                Email = Email,
+                Email = email,
                 PasswordHash = passwordHash,
-                Role = Role
+                Role = role
             };
 
-            if (Role.ToLower().Equals("admin"))
+            try
             {
-                _adminRepository.AddAdmin(FullName, user);
-            }
-            else if (Role.ToLower().Equals("student"))
-            {
-                var student = new Student
+                if (role.ToLower().Equals("admin"))
                 {
-                    Name = extraInput,
-                    DateOfBirth = DateTime.Now,
-                    
-                };
-                _parentRepository.AddParent(FullName, user, student);
+                    _adminRepository.AddAdmin(fullName, user);
+                }
+                else if (role.ToLower().Equals("student"))
+                {
+                    _parentRepository.AddParent(fullName, user, extraInput);
+                }
+                else if (role.ToLower().Equals("instructor"))
+                {
+                    _instructorRepository.AddInstructor(fullName, user, extraInput);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Please select a valide role!!!";
+                    return View();
+                }
             }
-            else if (Role.ToLower().Equals("instructor"))
+            catch (Exception e)
             {
-                _instructorRepository.AddInstructor(FullName, user, extraInput);
-            }
-            else
-            {
-                ViewBag.ErrorMessage = "Please select a valide role!!!";
-                return View();
+                Console.WriteLine(e.Message);
+                // TODO: Give alert for not adding the user
+                throw;
             }
 
             return RedirectToAction("Login");
@@ -84,31 +84,41 @@ namespace AthleteTracking.Controllers
 
         public async Task<ActionResult> UserLogin(string email, string password, string role)
         {
-            if (role.ToLower().Equals("admin"))
+            try
             {
-                var admin = await _adminRepository.GetAdminByUserAsync(new User { Email = email, PasswordHash = password });
-                Session["Id"] = admin.Id;
-                Session["Name"] = admin.Name;
-                return RedirectToAction("Admin", "Admin");
+                if (role.ToLower().Equals("admin"))
+                {
+                    var admin = await _adminRepository.GetAdminByUserAsync(new User { Email = email, PasswordHash = password });
+                    Session["Id"] = admin.Id;
+                    Session["Name"] = admin.Name;
+                    return RedirectToAction("Admin", "Admin");
+                }
+                else if (role.ToLower().Equals("student"))
+                {
+                    var parent = await _parentRepository.GetParentByUserAsync(new User { Email = email, PasswordHash = password });
+                    var student = parent.Student;
+                    Session["Id"] = student.Id;
+                    Session["Name"] = student.Name;
+                    return RedirectToAction("Student", "Student");
+                }
+                else if (role.ToLower().Equals("instructor"))
+                {
+                    var instructor = await _instructorRepository.GetInstructorByUserAsync(new User { Email = email, PasswordHash = password });
+                    Session["Id"] = instructor.Id;
+                    Session["Name"] = instructor.Name;
+                    return RedirectToAction("Instructor", "Instructor");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Please select a valide role!!!";
+                    return View();
+                }
             }
-            else if (role.ToLower().Equals("student"))
+            catch (Exception e)
             {
-                var student = await _studentRepository.GetStudentByUserAsync(new User { Email = email, PasswordHash = password });
-                Session["Id"] = student.Id;
-                Session["Name"] = student.Name;
-                return RedirectToAction("Student", "Student");
-            }
-            else if (role.ToLower().Equals("instructor"))
-            {
-                var instructor = await _instructorRepository.GetInstructorByUserAsync(new User { Email = email, PasswordHash = password });
-                Session["Id"] = instructor.Id;
-                Session["Name"] = instructor.Name;
-                return RedirectToAction("Instructor", "Instructor");
-            }
-            else
-            {
-                ViewBag.ErrorMessage = "Please select a valide role!!!";
-                return View();
+                Console.WriteLine(e.Message);
+                // TODO: Give alert for not founding the user
+                throw;
             }
         }
     }

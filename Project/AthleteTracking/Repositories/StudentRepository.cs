@@ -12,9 +12,19 @@ namespace AthleteTracking.Repositories
     public class StudentRepository
     {
         private readonly DBAthleteTrackingDbContext _context;
+        private readonly PaymentRepository _paymentRepository;
+
         public StudentRepository(DBAthleteTrackingDbContext context)
         {
             _context = context;
+            _paymentRepository = new PaymentRepository(_context);
+        }
+
+        public void AddStudent(Student student)
+        {
+            _context.Students.Add(student);
+            _paymentRepository.AddPayment(student);
+            _context.SaveChanges();
         }
 
         public async Task<List<Student>> GetStudentsAsync()
