@@ -14,11 +14,13 @@ namespace AthleteTracking.Controllers
     {
         private readonly DBAthleteTrackingDbContext _context;
         private readonly SessionRepository _sessionRepository;
+        private readonly StudentRepository _studentRepository;
 
         public InstructorController()
         {
             _context = new DBAthleteTrackingDbContext();
             _sessionRepository = new SessionRepository(_context);
+            _studentRepository = new StudentRepository(_context);
         }
 
         // GET: Instructor
@@ -34,10 +36,16 @@ namespace AthleteTracking.Controllers
             return View();
         }
 
-        public ActionResult MyStudents()
+        public async Task<ActionResult> MyStudents()
         {
-            return View();
+            var instructor = Session["Instructor"] as Instructor;
+            var students = await _studentRepository.GetStudentsByInstructorAsync(instructor.Id);
+
+            return View(students);
         }
+
+        
+        
 
         public async Task<ActionResult> MySessions()
         {
@@ -47,5 +55,6 @@ namespace AthleteTracking.Controllers
             return View(sessions);
         }
 
+        
     }
 }

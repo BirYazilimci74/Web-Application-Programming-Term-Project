@@ -3,6 +3,7 @@ using AthleteTracking.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
@@ -37,8 +38,20 @@ namespace AthleteTracking.Repositories
 
         public async Task<Student> GetStudentByIdAsync(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var student = await _context.Students
+                .Include(s => s.Instructor)
+                .Include(s => s.DevelopmentRecords)
+                .FirstAsync(s => s.Id == id);
             return student;
+        }
+
+        public async Task<List<Student>> GetStudentsByInstructorAsync(int instructorId)
+        {
+            var students = await _context.Students
+                .Include(s => s.Instructor)
+                .Where(s => s.InstructorId == instructorId)
+                .ToListAsync();
+            return students;
         }
 
         public async Task<Student> GetStudentByUserAsync(User user)
