@@ -17,7 +17,7 @@
             <p>Instructor: @session.Instructor.Name</p>
             <p>Branch: @session.Branch.District</p>
             <form action="/Student/CancelSession" method="post">
-                <input type="hidden" name="id" value="@session.Id" />
+                <input type="hidden" name="sessionId" value="@session.Id" />
                 <button type="submit" class="cancelSession-button">Cancel</button>
             </form>
 
@@ -34,7 +34,7 @@
             <p>Instructor: @session.Instructor.Name</p>
             <p>Branch: @session.Branch.District</p>
             <form action="/Student/RegisterSession" method="post">
-                <input type="hidden" name="id" value="@session.Id" />
+                <input type="hidden" name="sessionId" value="@session.Id" />
                 <button type="submit" class="registerSession-button">Register</button>
             </form>
         </div>

@@ -28,5 +28,24 @@ namespace AthleteTracking.Repositories
                 .ToListAsync();
             return sessions;
         }
+
+        public void AddAttendance(int sessionId, Student student)
+        {
+            _context.SessionAttendances.Add(new SessionAttendance
+            {
+                SessionId = sessionId,
+                StudentId = student.Id
+            });
+            _context.SaveChanges();
+        }
+
+        public void RomoveAttendance(int sessionId, Student student)
+        {
+            var attendance = _context.SessionAttendances
+                .FirstOrDefault(sa => sa.SessionId == sessionId && sa.StudentId == student.Id);
+            _context.SessionAttendances.Remove(attendance);
+
+            _context.SaveChanges();
+        }
     }
 }

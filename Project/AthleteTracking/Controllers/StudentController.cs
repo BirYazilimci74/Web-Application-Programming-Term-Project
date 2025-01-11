@@ -93,6 +93,22 @@ namespace AthleteTracking.Controllers
             return View(sessions);
         }
 
+        [HttpPost]
+        public ActionResult RegisterSession(int sessionId)
+        {
+            var student = Session["Student"] as Student;
+            _attendanceRepository.AddAttendance(sessionId, student);
+            return RedirectToAction("MySessions");
+        }
+
+        [HttpPost]
+        public ActionResult CancelSession(int sessionId)
+        {
+            var student = Session["Student"] as Student;
+            _attendanceRepository.RomoveAttendance(sessionId, student);
+            return RedirectToAction("MySessions");
+        }
+
         public ActionResult MyRecords()
         {
             return View();

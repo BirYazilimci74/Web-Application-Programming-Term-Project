@@ -36,5 +36,11 @@ namespace AthleteTracking.Repositories
                 .ToListAsync();
             return sessions;
         }
+
+        public void AddSession(Session session)
+        {
+            _context.Sessions.Add(session);
+            _context.SaveChanges();
+        }
     }
 }

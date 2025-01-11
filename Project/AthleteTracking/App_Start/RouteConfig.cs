@@ -68,6 +68,18 @@ namespace AthleteTracking
                 defaults: new { controller = "Student", action = "MyRecords", id = UrlParameter.Optional }
             );
 
+            routes.MapRoute(
+                name: "StudentRegisterSession",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Student", action = "RegisterSession", id = UrlParameter.Optional }
+            );
+            
+            routes.MapRoute(
+                name: "StudentCancelSession",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Student", action = "CancelSession", id = UrlParameter.Optional }
+            );
+
             //Admin Routes
             routes.MapRoute(
                 name: "Admin",
