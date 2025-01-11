@@ -115,3 +115,9 @@
     .cancelSession-button:hover {
         background-color: #a00000;
     }
+
+
+#developmentChart {
+    width: 100%;
+    height: 400px;
+}

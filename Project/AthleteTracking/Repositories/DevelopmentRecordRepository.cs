@@ -2,7 +2,9 @@
 using AthleteTracking.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace AthleteTracking.Repositories
@@ -24,6 +26,15 @@ namespace AthleteTracking.Repositories
             };
             _context.DevelopmentRecords.Add(developmentRecord);
             _context.SaveChanges();
+        }
+
+        public async Task<List<DevelopmentRecord>> GetRecordsAsync(Student student)
+        {
+            var data = await _context.DevelopmentRecords
+                .Where(d => d.StudentId == student.Id)
+                .OrderBy(d => d.Date)
+                .ToListAsync();
+            return data;
         }
     }
 }

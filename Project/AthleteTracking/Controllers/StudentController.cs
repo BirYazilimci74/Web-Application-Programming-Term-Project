@@ -3,6 +3,7 @@ using AthleteTracking.Models;
 using AthleteTracking.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,6 +18,7 @@ namespace AthleteTracking.Controllers
         private readonly PaymentRepository _paymentRepository;
         private readonly SessionRepository _sessionRepository;
         private readonly AttendanceRepository _attendanceRepository;
+        private readonly DevelopmentRecordRepository _developmentRecordRepository;
         public StudentController() 
         {
             _context = new DBAthleteTrackingDbContext();
@@ -24,6 +26,7 @@ namespace AthleteTracking.Controllers
             _paymentRepository = new PaymentRepository(_context);
             _sessionRepository = new SessionRepository(_context);
             _attendanceRepository = new AttendanceRepository(_context);
+            _developmentRecordRepository = new DevelopmentRecordRepository(_context);
         }
 
         // GET: Student
@@ -93,6 +96,15 @@ namespace AthleteTracking.Controllers
         public ActionResult MyRecords()
         {
             return View();
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult> MyRecordsChart()
+        {
+            var student = Session["Student"] as Student;
+            var data = await _developmentRecordRepository.GetRecordsAsync(student);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }
