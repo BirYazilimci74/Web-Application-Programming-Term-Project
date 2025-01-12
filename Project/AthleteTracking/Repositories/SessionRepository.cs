@@ -42,5 +42,12 @@ namespace AthleteTracking.Repositories
             _context.Sessions.Add(session);
             _context.SaveChanges();
         }
+
+        public async Task RemoveSessionAsync(int sessionId)
+        {
+            var session = await _context.Sessions.FindAsync(sessionId);
+            _context.Sessions.Remove(session);
+            await _context.SaveChangesAsync();
+        }
     }
 }

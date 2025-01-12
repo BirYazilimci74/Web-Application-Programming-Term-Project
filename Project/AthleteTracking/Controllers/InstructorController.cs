@@ -82,9 +82,9 @@ namespace AthleteTracking.Controllers
             return RedirectToAction("MySessions");
         }
 
-        public ActionResult CancelSession()
+        public async Task<ActionResult> CancelSession(int sessionId)
         {
-
+            await _sessionRepository.RemoveSessionAsync(sessionId);
             return RedirectToAction("MySessions");
         }
 
