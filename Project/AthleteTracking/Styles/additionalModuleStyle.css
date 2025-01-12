@@ -20,6 +20,13 @@
     text-align: center;
 }
 
+.modal-header {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .close-button {
     float: right;
     font-size: 1.5em;
@@ -51,4 +58,79 @@
 
     .add-record-button:hover {
         background-color: #45a049;
+    }
+
+/* Add Session */
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #e0e0e0;
+    border: 2px solid #000;
+    border-radius: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .add-button:hover {
+        background-color: #d6d6d6;
+        transform: scale(1.1);
+    }
+
+    .add-button span {
+        font-size: 24px;
+        font-weight: bold;
+        color: #000;
+    }
+
+.form-group-session {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+    .form-group-session label {
+        font-weight: bold;
+    }
+
+    .form-group-session select {
+        width: 60%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+.add-session-button {
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+    .add-session-button:hover {
+        background-color: #45a049;
+    }
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .close:hover {
+        color: red;
     }

@@ -2,6 +2,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "MySessions";
+    var branchs = Session["Branchs"] as List<AthleteTracking.Models.Branch>;
+    var instructor = Session["Instructor"] as AthleteTracking.Models.Instructor;
     @model List<AthleteTracking.Models.Session>
 }
 
@@ -14,11 +16,92 @@
             <p>Date: @session.Day</p>
             <p>Time: @session.StartTime - @session.EndTime</p>
             <p>Branch: @session.Branch.District</p>
-            <form action="/Student/CancelSession" method="post">
+            <form action="/Instructor/CancelSession" method="post">
                 <input type="hidden" name="id" value="@session.Id" />
                 <button type="submit" class="cancelSession-button">Cancel</button>
             </form>
-
         </div>
     }
 </div>
+
+<!-- Add Button -->
+<button class="add-button" onclick="openModal()">+</button>
+
+<!-- Modal -->
+<div class="modal" id="sessionModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-header">@instructor.Specialization</div>
+        <form action="/Instructor/AddSession" method="post">
+            <div class="form-group-session">
+                <label for="date">Date:</label>
+                <select id="date" name="day">
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+            </div>
+            <div class="form-group-session">
+                <label for="start-time">Start Time:</label>
+                <select id="start-time" name="startTime">
+                    <option>10:00</option>
+                    <option>11:00</option>
+                    <option>12:00</option>
+                    <option>13:00</option>
+                    <option>14:00</option>
+                    <option>15:00</option>
+                    <option>16:00</option>
+                    <option>17:00</option>
+                    <option>18:00</option>
+                    <option>19:00</option>
+                    <option>20:00</option>
+                </select>
+            </div>
+            <div class="form-group-session">
+                <label for="end-time">End Time:</label>
+                <select id="end-time" name="endTime">
+                    <option>11:00</option>
+                    <option>12:00</option>
+                    <option>13:00</option>
+                    <option>14:00</option>
+                    <option>15:00</option>
+                    <option>16:00</option>
+                    <option>17:00</option>
+                    <option>18:00</option>
+                    <option>19:00</option>
+                    <option>20:00</option>
+                    <option>21:00</option>
+                </select>
+            </div>
+            <div class="form-group-session">
+                <label for="branch">Branch:</label>
+                <select id="branch" name="branchId">
+                    @foreach (var branch in branchs)
+                    {
+                        <option value="@branch.Id">@branch.District</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="add-session-button">Add Session</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById("sessionModal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("sessionModal").style.display = "none";
+    }
+
+    function addSession() {
+        alert("Session Added!");
+        closeModal();
+    }
+</script>

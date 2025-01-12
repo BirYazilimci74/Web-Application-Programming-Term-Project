@@ -16,6 +16,7 @@ namespace AthleteTracking.Controllers
         private readonly SessionRepository _sessionRepository;
         private readonly StudentRepository _studentRepository;
         private readonly DevelopmentRecordRepository _developmentRecordRepository;
+        private readonly BranchRepository _branchRepository;
 
         public InstructorController()
         {
@@ -23,6 +24,7 @@ namespace AthleteTracking.Controllers
             _sessionRepository = new SessionRepository(_context);
             _studentRepository = new StudentRepository(_context);
             _developmentRecordRepository = new DevelopmentRecordRepository(_context);
+            _branchRepository = new BranchRepository(_context);
         }
 
         // GET: Instructor
@@ -63,7 +65,24 @@ namespace AthleteTracking.Controllers
             return RedirectToAction("MyStudents");
         }
         
-        public ActionResult AddSession()
+        public ActionResult AddSession(string day, TimeSpan startTime, TimeSpan endTime, int branchId)
+        {
+            var instructor = Session["Instructor"] as Instructor;
+            var session = new Session
+            {
+                Day = day,
+                Name = instructor.Specialization,
+                StartTime = startTime,
+                EndTime = endTime,
+                BranchId = branchId,
+                InstructorId = instructor.Id
+            };
+
+            _sessionRepository.AddSession(session);
+            return RedirectToAction("MySessions");
+        }
+
+        public ActionResult CancelSession()
         {
 
             return RedirectToAction("MySessions");
@@ -73,7 +92,8 @@ namespace AthleteTracking.Controllers
         {
             var instructor = Session["Instructor"] as Instructor;
             var sessions = await _sessionRepository.GetSessionsForInstructorAsync(instructor.Id);
-            
+            Session["Branchs"] = await _branchRepository.GetBranchsAsync();
+
             return View(sessions);
         }
 
