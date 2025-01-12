@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/Styles/loginStyle.css">
 </head>
 <body>
+    
     <div class="login-container">
         <h1 class="title">TITLE</h1>
         <form class="login-form" method="post" action="@Url.Action("UserLogin")">
@@ -26,7 +27,18 @@
                 <option value="instructor">Instructor</option>
             </select>
             <button type="submit" class="login-button">LOGIN</button>
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+            {
+                <div class="alert-danger">@ViewBag.ErrorMessage</div>
+            }
+
+            @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage as string))
+            {
+                <div class="alert-success">@ViewBag.SuccessMessage</div>
+            }
         </form>
     </div>
+
+
 </body>
 </html>

@@ -69,17 +69,19 @@ namespace AthleteTracking.Controllers
                 else
                 {
                     ViewBag.ErrorMessage = "Please select a valide role!!!";
-                    return View();
+                    return View("Register");
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                // TODO: Give alert for not adding the user
-                throw;
+                
+                ViewBag.ErrorMessage = "An error occurred while adding the user. Please try again later.";
+                return View("Register");
             }
 
-            return RedirectToAction("Login");
+            ViewBag.SuccessMessage = "Registration successful! You can now log in.";
+            return View("Login");
         }
 
         public async Task<ActionResult> UserLogin(string email, string password, string role)
@@ -89,6 +91,12 @@ namespace AthleteTracking.Controllers
                 if (role.ToLower().Equals("admin"))
                 {
                     var admin = await _adminRepository.GetAdminByUserAsync(new User { Email = email, PasswordHash = password });
+                    if (admin == null) 
+                    {
+                        ViewBag.ErrorMessage = "Admin not found!";
+                        return View("Login");
+                    }
+                    
                     Session["Id"] = admin.Id;
                     Session["Name"] = admin.Name;
                     Session["Admin"] = admin;
@@ -98,7 +106,13 @@ namespace AthleteTracking.Controllers
                 else if (role.ToLower().Equals("student"))
                 {
                     var parent = await _parentRepository.GetParentByUserAsync(new User { Email = email, PasswordHash = password });
+                    if (parent == null)
+                    {
+                        ViewBag.ErrorMessage = "Parent not found!";
+                        return View("Login");
+                    }
                     var student = parent.Student;
+
                     Session["Id"] = student.Id;
                     Session["Name"] = student.Name;
                     Session["Student"] = student;
@@ -109,6 +123,12 @@ namespace AthleteTracking.Controllers
                 else if (role.ToLower().Equals("instructor"))
                 {
                     var instructor = await _instructorRepository.GetInstructorByUserAsync(new User { Email = email, PasswordHash = password });
+                    if (instructor == null)
+                    {
+                        ViewBag.ErrorMessage = "Instructor not found!";
+                        return View("Login");
+                    }
+
                     Session["Id"] = instructor.Id;
                     Session["Name"] = instructor.Name;
                     Session["Instructor"] = instructor;
@@ -118,14 +138,14 @@ namespace AthleteTracking.Controllers
                 else
                 {
                     ViewBag.ErrorMessage = "Please select a valide role!!!";
-                    return View();
+                    return View("Login");
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                // TODO: Give alert for not founding the user
-                throw;
+                ViewBag.ErrorMessage = "An error occurred during login. Please try again later.";
+                return View("Login");
             }
         }
     }
