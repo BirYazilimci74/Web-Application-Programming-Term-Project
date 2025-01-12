@@ -116,8 +116,9 @@ namespace AthleteTracking
                 name: "InstructorMySessions",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Instructor", action = "MySessions", id = UrlParameter.Optional }
+            );
 
-                );
+
         }
     }
 }

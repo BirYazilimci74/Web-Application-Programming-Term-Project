@@ -120,7 +120,15 @@ namespace AthleteTracking.Controllers
         {
             var student = Session["Student"] as Student;
             var data = await _developmentRecordRepository.GetRecordsAsync(student);
-            return Json(data, JsonRequestBehavior.AllowGet);
+            
+            var chartData = data.Select(d => new { 
+                Date = d.Date.ToString("dd/MM/yyyy"), 
+                d.Weight, 
+                d.Height, 
+                d.BMI,
+                d.CoachComment
+            }).ToList();
+            return Json(chartData, JsonRequestBehavior.AllowGet);
         }
     }
 }

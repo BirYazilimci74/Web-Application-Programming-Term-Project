@@ -15,12 +15,14 @@ namespace AthleteTracking.Controllers
         private readonly DBAthleteTrackingDbContext _context;
         private readonly SessionRepository _sessionRepository;
         private readonly StudentRepository _studentRepository;
+        private readonly DevelopmentRecordRepository _developmentRecordRepository;
 
         public InstructorController()
         {
             _context = new DBAthleteTrackingDbContext();
             _sessionRepository = new SessionRepository(_context);
             _studentRepository = new StudentRepository(_context);
+            _developmentRecordRepository = new DevelopmentRecordRepository(_context);
         }
 
         // GET: Instructor
@@ -44,8 +46,28 @@ namespace AthleteTracking.Controllers
             return View(students);
         }
 
+        public ActionResult AddRecord(int studentId, decimal weight, decimal height, string comment)
+        {
+            decimal bmi = Convert.ToDecimal((double)weight / Math.Pow((double)height / 100.0, 2));
+            var record = new DevelopmentRecord
+            {
+                StudentId = studentId,
+                Height = height,
+                Weight = weight,
+                BMI = bmi,
+                CoachComment = comment,
+                Date = DateTime.Now
+            };
+             _developmentRecordRepository.AddDevelopmentRecord(record);
+
+            return RedirectToAction("MyStudents");
+        }
         
-        
+        public ActionResult AddSession()
+        {
+
+            return RedirectToAction("MySessions");
+        }
 
         public async Task<ActionResult> MySessions()
         {

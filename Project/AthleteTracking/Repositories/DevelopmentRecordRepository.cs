@@ -12,19 +12,17 @@ namespace AthleteTracking.Repositories
     public class DevelopmentRecordRepository
     {
         private readonly DBAthleteTrackingDbContext _context;
+        private readonly StudentRepository _studentRepository;
 
         public DevelopmentRecordRepository(DBAthleteTrackingDbContext context)
         {
             _context = context;
+            _studentRepository = new StudentRepository(_context);
         }
 
-        public void AddDevelopmentRecord()
+        public void AddDevelopmentRecord(DevelopmentRecord record)
         {
-            var developmentRecord = new DevelopmentRecord
-            {
-                
-            };
-            _context.DevelopmentRecords.Add(developmentRecord);
+            _context.DevelopmentRecords.Add(record);
             _context.SaveChanges();
         }
 

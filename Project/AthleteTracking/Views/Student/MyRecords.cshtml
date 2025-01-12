@@ -7,20 +7,19 @@
 <canvas id="developmentChart"></canvas>
 
 <script>
-    // JSON verileri almak için fetch kullanıyoruz
     fetch(`/Student/MyRecordsChart`)
         .then(response => response.json())
         .then(data => {
-            const labels = data.map(record => record.Date); // Tarihler
-            const heights = data.map(record => record.Height); // Boylar
-            const weights = data.map(record => record.Weight); // Kilolar
-            const bmis = data.map(record => record.BMI); // BMI
+            const labels = data.map(record => record.Date);
+            const heights = data.map(record => record.Height);
+            const weights = data.map(record => record.Weight);
+            const bmis = data.map(record => record.BMI);
+            const comments = data.map(record => record.CoachComment);
 
-            console.log(data)
-            // Chart.js ile grafiği oluşturuyoruz
+            // Chart.js ile grafik
             const ctx = document.getElementById('developmentChart').getContext('2d');
             new Chart(ctx, {
-                type: 'line', // Çizgi grafik
+                type: 'line',
                 data: {
                     labels: labels,
                     datasets: [
@@ -29,7 +28,7 @@
                             data: heights,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            fill: false
+                            fill: false,
                         },
                         {
                             label: 'Weight (kg)',
@@ -50,6 +49,15 @@
                 options: {
                     responsive: true,
                     plugins: {
+                        tooltip: {
+                            callbacks: {
+                                afterBody: (tooltipItems) => {
+                                    const index = tooltipItems[0].dataIndex;
+                                    const comment = data[index].CoachComment || 'No comment';
+                                    return `${comment}`;
+                                }
+                            }
+                        },
                         legend: {
                             position: 'top',
                         },
@@ -73,6 +81,7 @@
                         }
                     }
                 }
+
             });
         })
     .catch(error => console.error('Error fetching data:', error));
