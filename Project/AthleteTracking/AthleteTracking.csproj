@@ -201,6 +201,10 @@
     <Compile Include="Migrations\202501111235551_dayforsession.Designer.cs">
       <DependentUpon>202501111235551_dayforsession.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501121245322_branchRelation.cs" />
+    <Compile Include="Migrations\202501121245322_branchRelation.Designer.cs">
+      <DependentUpon>202501121245322_branchRelation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Branch.cs" />
@@ -293,6 +297,10 @@
     <Content Include="Views\Student\MyRecords.cshtml" />
     <Content Include="Views\Instructor\MySessions.cshtml" />
     <Content Include="Views\Instructor\MyStudents.cshtml" />
+    <Content Include="Views\Admin\Sessions.cshtml" />
+    <Content Include="Views\Admin\Students.cshtml" />
+    <Content Include="Views\Admin\Branchs.cshtml" />
+    <Content Include="Views\Admin\Instructors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -363,6 +371,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501111235551_dayforsession.resx">
       <DependentUpon>202501111235551_dayforsession.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501121245322_branchRelation.resx">
+      <DependentUpon>202501121245322_branchRelation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

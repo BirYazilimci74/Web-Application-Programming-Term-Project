@@ -88,6 +88,30 @@ namespace AthleteTracking
             );
 
             routes.MapRoute(
+                name: "AdminSessions",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Admin", action = "Sessions", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "AdminStudents",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Admin", action = "Students", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "AdminInstructors",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Admin", action = "Instructors", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "AdminBranchs",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Admin", action = "Branchs", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "AdminInfo",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Admin", action = "UserInfo", id = UrlParameter.Optional }

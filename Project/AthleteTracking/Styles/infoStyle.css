@@ -21,11 +21,12 @@
 .user-details h2 {
     margin: 0;
     font-size: 24px;
+    text-align: left;
 }
 
 .user-details p {
     margin: 5px 0;
-    color: #666;
+    color: white;
 }
 
 .info-update {

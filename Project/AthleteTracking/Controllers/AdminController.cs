@@ -11,9 +11,28 @@ namespace AthleteTracking.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            ViewBag.Message = "Admin Page.";
             ViewBag.UserType = "Admin";
 
+            return View();
+        }
+
+        public ActionResult Sessions()
+        {
+            return View();
+        }
+
+        public ActionResult Students()
+        {
+            return View();
+        }
+
+        public ActionResult Instructors()
+        {
+            return View();
+        }
+
+        public ActionResult Branchs()
+        {
             return View();
         }
 
